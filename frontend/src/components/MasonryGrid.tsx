@@ -16,8 +16,8 @@ const SAMPLE_IMAGES = [
 
 const MasonryGrid = () => {
     return (
-        <div className="px-4 pb-12 mx-auto max-w-[1600px]">
-            <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        <div className="px-4 pb-12 mx-auto max-w-[1920px]">
+            <div className="columns-2 md:columns-4 lg:columns-5 xl:columns-6 2xl:columns-7 gap-4 space-y-4">
                 {SAMPLE_IMAGES.map((src, index) => (
                     <div
                         key={index}
