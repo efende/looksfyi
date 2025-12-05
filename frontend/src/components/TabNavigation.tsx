@@ -1,10 +1,13 @@
-import { useState } from 'react';
 
-type Tab = 'Models' | 'Items' | 'Looks';
 
-const TabNavigation = () => {
-    const [activeTab, setActiveTab] = useState<Tab>('Models');
+export type Tab = 'Models' | 'Items' | 'Looks';
 
+interface TabNavigationProps {
+    activeTab: Tab;
+    onTabChange: (tab: Tab) => void;
+}
+
+const TabNavigation = ({ activeTab, onTabChange }: TabNavigationProps) => {
     const tabs: Tab[] = ['Models', 'Items', 'Looks'];
 
     return (
@@ -12,7 +15,7 @@ const TabNavigation = () => {
             {tabs.map((tab) => (
                 <button
                     key={tab}
-                    onClick={() => setActiveTab(tab)}
+                    onClick={() => onTabChange(tab)}
                     className={`
             relative py-2 text-sm font-normal transition-colors duration-200
             ${activeTab === tab
