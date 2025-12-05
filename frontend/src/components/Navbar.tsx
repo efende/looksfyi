@@ -14,7 +14,7 @@ const Navbar = () => {
                         <div className="w-2 h-2 bg-white rounded-[1px]"></div>
                     </div>
                 </div>
-                <span className="font-medium text-gray-900">Kingdom</span>
+                <span className="font-normal text-gray-900">Kingdom</span>
             </div>
 
             {/* Center: Title */}
@@ -28,10 +28,10 @@ const Navbar = () => {
             <div className="flex items-center gap-6">
                 <div className="flex items-center gap-1.5 text-gray-600 hover:text-black cursor-pointer transition-colors">
                     <Coins size={16} />
-                    <span className="text-sm font-medium">15</span>
+                    <span className="text-sm font-normal">15</span>
                 </div>
 
-                <button className="flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
+                <button className="flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full text-sm font-normal hover:bg-gray-800 transition-colors">
                     <Crown size={14} />
                     <span>Upgrade</span>
                 </button>

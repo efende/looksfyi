@@ -23,10 +23,10 @@ const ProfileHeader = () => {
 
             {/* Stats */}
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                <span className="font-medium text-black">71</span>
+                <span className="font-normal text-black">71</span>
                 <span>followers</span>
                 <span className="w-1 h-1 bg-gray-300 rounded-full mx-1"></span>
-                <span className="font-medium text-black">42</span>
+                <span className="font-normal text-black">42</span>
                 <span>following</span>
             </div>
 

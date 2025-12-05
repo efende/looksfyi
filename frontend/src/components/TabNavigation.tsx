@@ -8,19 +8,23 @@ const TabNavigation = () => {
     const tabs: Tab[] = ['Models', 'Items', 'Looks'];
 
     return (
-        <div className="flex items-center justify-center gap-8 mb-12">
+        <div className="sticky top-[64px] z-40 bg-white/70 backdrop-blur-md border-b border-gray-100/50 flex items-center justify-center gap-12 py-4 mb-8 transition-all duration-300 w-full">
             {tabs.map((tab) => (
                 <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`
-            px-6 py-2 rounded-lg text-sm transition-all duration-300
+            relative py-2 text-sm font-normal transition-colors duration-200
             ${activeTab === tab
-                            ? 'border border-black text-black font-medium'
-                            : 'text-gray-400 hover:text-gray-600 border border-transparent'}
+                            ? 'text-black'
+                            : 'text-gray-500 hover:text-black'}
           `}
                 >
                     {tab}
+                    {/* Active Underline */}
+                    {activeTab === tab && (
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-black rounded-full" />
+                    )}
                 </button>
             ))}
         </div>
