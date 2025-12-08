@@ -3,11 +3,15 @@ import type { Product } from '../data/mockData';
 
 interface ProductCardProps {
     product: Product;
+    onClick?: () => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, onClick }: ProductCardProps) => {
     return (
-        <div className="group break-inside-avoid relative mb-4 cursor-pointer">
+        <div
+            onClick={onClick}
+            className="group break-inside-avoid relative mb-4 cursor-pointer"
+        >
             {/* Image Container */}
             <div className="relative overflow-hidden rounded-xl bg-gray-100">
                 <img

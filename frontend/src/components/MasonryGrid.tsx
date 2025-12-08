@@ -2,7 +2,9 @@
 
 
 
+import { useState } from 'react';
 import ProductCard from './ProductCard';
+import ProductModal from './ProductModal';
 import type { Product } from '../data/mockData';
 
 interface MasonryGridProps {
@@ -10,13 +12,26 @@ interface MasonryGridProps {
 }
 
 const MasonryGrid = ({ products }: MasonryGridProps) => {
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
     return (
         <div className="px-4 pb-12 mx-auto max-w-[1920px]">
             <div className="columns-2 md:columns-4 lg:columns-5 xl:columns-6 2xl:columns-7 gap-4 space-y-4">
                 {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard
+                        key={product.id}
+                        product={product}
+                        onClick={() => setSelectedProduct(product)}
+                    />
                 ))}
             </div>
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    onClose={() => setSelectedProduct(null)}
+                />
+            )}
         </div>
     );
 };
