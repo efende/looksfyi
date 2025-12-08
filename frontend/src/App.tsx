@@ -9,7 +9,7 @@ import { MODELS_DATA, ITEMS_DATA, LOOKS_DATA } from './data/mockData';
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('Models');
 
-  const getImagesForTab = (tab: Tab) => {
+  const getProductsForTab = (tab: Tab) => {
     switch (tab) {
       case 'Models':
         return MODELS_DATA;
@@ -29,7 +29,7 @@ function App() {
       <main className="w-full">
         <ProfileHeader />
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-        <MasonryGrid images={getImagesForTab(activeTab)} />
+        <MasonryGrid products={getProductsForTab(activeTab)} />
       </main>
     </div>
   );

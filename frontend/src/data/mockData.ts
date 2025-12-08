@@ -1,3 +1,11 @@
+export interface Product {
+    id: string;
+    image: string;
+    brand: string;
+    name: string;
+    price: string;
+}
+
 const MODEL_IMAGES = [
     'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
@@ -37,15 +45,25 @@ const LOOK_IMAGES = [
     'https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?q=80&w=800&auto=format&fit=crop',
 ];
 
-// Function to fill array up to 50 items by repeating
-const fillTo50 = (baseArr: string[]) => {
-    const result = [];
+// Helper to generate random product data
+const BRANDS = ['Gucci', 'Prada', 'Zara', 'H&M', 'Uniqlo', 'Nike', 'Adidas', 'Chanel', 'Dior', 'Fendi'];
+const NAMES = ['Silk Blouse', 'Cotton Tee', 'Denim Jacket', 'Wool Coat', 'Leather Bag', 'Summer Dress', 'Casual Pants', 'Sneakers', 'Evening Gown', 'Scarf'];
+
+const createProducts = (images: string[], prefix: string): Product[] => {
+    // Generate 50 items by cycling through images and random text
+    const result: Product[] = [];
     for (let i = 0; i < 50; i++) {
-        result.push(baseArr[i % baseArr.length]);
+        result.push({
+            id: `${prefix}-${i}`,
+            image: images[i % images.length],
+            brand: BRANDS[Math.floor(Math.random() * BRANDS.length)],
+            name: NAMES[Math.floor(Math.random() * NAMES.length)],
+            price: `$${Math.floor(Math.random() * 200) + 20}`,
+        });
     }
     return result;
 };
 
-export const MODELS_DATA = fillTo50(MODEL_IMAGES);
-export const ITEMS_DATA = fillTo50(ITEM_IMAGES);
-export const LOOKS_DATA = fillTo50(LOOK_IMAGES);
+export const MODELS_DATA = createProducts(MODEL_IMAGES, 'model');
+export const ITEMS_DATA = createProducts(ITEM_IMAGES, 'item');
+export const LOOKS_DATA = createProducts(LOOK_IMAGES, 'look');
