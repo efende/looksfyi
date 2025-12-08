@@ -1,4 +1,5 @@
-import { Coins, Crown, ChevronDown } from 'lucide-react';
+import { Coins, Crown } from 'lucide-react';
+import LoginButton from './LoginButton';
 
 const Navbar = () => {
     return (
@@ -37,16 +38,7 @@ const Navbar = () => {
                 </button>
 
                 <div className="flex items-center gap-1 cursor-pointer">
-                    <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-100">
-                        {/* Placeholder generic avatar if no image provided yet, but user specifically asked for 'Kingdom Chen's avatar. 
-                We'll use a placeholder for now that looks premium. */}
-                        <img
-                            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100&h=100"
-                            alt="User"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <ChevronDown size={14} className="text-gray-400" />
+                    <LoginButton />
                 </div>
             </div>
         </nav>
