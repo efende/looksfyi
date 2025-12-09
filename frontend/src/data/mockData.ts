@@ -6,7 +6,7 @@ export interface Product {
     name: string;
     price: string;
     details: string;
-    relatedImages?: string[];
+    relatedProducts?: Product[];
 }
 
 const MODEL_IMAGES = [
@@ -78,7 +78,19 @@ const createProducts = (images: string[], prefix: string, type: 'product' | 'mod
             name: nameSource[Math.floor(Math.random() * nameSource.length)],
             price: `$${Math.floor(Math.random() * 200) + 20}`,
             details: DETAILS[Math.floor(Math.random() * DETAILS.length)],
-            relatedImages: type === 'look' ? Array.from({ length: Math.floor(Math.random() * 10) + 1 }, () => ITEM_IMAGES[Math.floor(Math.random() * ITEM_IMAGES.length)]) : undefined,
+            relatedProducts: type === 'look' ? Array.from({ length: Math.floor(Math.random() * 6) + 3 }, (_, idx) => {
+                const img = ITEM_IMAGES[Math.floor(Math.random() * ITEM_IMAGES.length)];
+                const relatedBrand = BRANDS[Math.floor(Math.random() * BRANDS.length)];
+                return {
+                    id: `${prefix}-${i}-related-${idx}`,
+                    image: img,
+                    brand: relatedBrand,
+                    brandAvatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(relatedBrand)}&background=random&color=fff&size=128`,
+                    name: NAMES[Math.floor(Math.random() * NAMES.length)],
+                    price: `$${Math.floor(Math.random() * 200) + 20}`,
+                    details: DETAILS[Math.floor(Math.random() * DETAILS.length)],
+                }
+            }) : undefined,
         });
     }
     return result;
