@@ -6,6 +6,7 @@ export interface Product {
     name: string;
     price: string;
     details: string;
+    relatedImages?: string[];
 }
 
 const MODEL_IMAGES = [
@@ -62,7 +63,7 @@ const MODEL_NAMES = [
     "Anok Yai", "Kaia Gerber", "Liu Wen", "Vittoria Ceretti", "Paloma Elsesser"
 ];
 
-const createProducts = (images: string[], prefix: string, type: 'product' | 'model' = 'product'): Product[] => {
+const createProducts = (images: string[], prefix: string, type: 'product' | 'model' | 'look' = 'product'): Product[] => {
     // Generate 50 items by cycling through images and random text
     const result: Product[] = [];
     const nameSource = type === 'model' ? MODEL_NAMES : NAMES;
@@ -77,6 +78,7 @@ const createProducts = (images: string[], prefix: string, type: 'product' | 'mod
             name: nameSource[Math.floor(Math.random() * nameSource.length)],
             price: `$${Math.floor(Math.random() * 200) + 20}`,
             details: DETAILS[Math.floor(Math.random() * DETAILS.length)],
+            relatedImages: type === 'look' ? Array.from({ length: Math.floor(Math.random() * 10) + 1 }, () => ITEM_IMAGES[Math.floor(Math.random() * ITEM_IMAGES.length)]) : undefined,
         });
     }
     return result;
@@ -84,4 +86,4 @@ const createProducts = (images: string[], prefix: string, type: 'product' | 'mod
 
 export const MODELS_DATA = createProducts(MODEL_IMAGES, 'model', 'model');
 export const ITEMS_DATA = createProducts(ITEM_IMAGES, 'item', 'product');
-export const LOOKS_DATA = createProducts(LOOK_IMAGES, 'look', 'model');
+export const LOOKS_DATA = createProducts(LOOK_IMAGES, 'look', 'look');
