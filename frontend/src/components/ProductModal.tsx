@@ -57,7 +57,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                             <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
                                 Save
                             </button>
-                            <button className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
+                            <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
                                 Buy
                             </button>
                         </div>
