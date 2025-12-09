@@ -31,7 +31,7 @@ function App() {
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         <MasonryGrid
           products={getProductsForTab(activeTab)}
-          variant={activeTab === 'Models' ? 'model' : 'item'}
+          variant={activeTab === 'Models' ? 'model' : activeTab === 'Looks' ? 'look' : 'item'}
         />
       </main>
     </div>

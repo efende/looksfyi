@@ -2,6 +2,7 @@ export interface Product {
     id: string;
     image: string;
     brand: string;
+    brandAvatar: string;
     name: string;
     price: string;
     details: string;
@@ -34,16 +35,16 @@ const ITEM_IMAGES = [
 ];
 
 const LOOK_IMAGES = [
-    'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1485230946086-21e76a005902?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1550614000-4b9519e02d48?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?q=80&w=800&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?q=80&w=800&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=800&auto=format&fit=crop', // Velvet dark
+    'https://images.unsplash.com/photo-1550614000-4b9519e02d48?q=80&w=800&auto=format&fit=crop', // Grey studio
+    'https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=800&auto=format&fit=crop', // Blue background
+    'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop', // Street fashion
+    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop', // Pink dress
+    'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=800&auto=format&fit=crop', // Floral dress
+    'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop', // Brown sweater
+    'https://images.unsplash.com/photo-1515347619252-60a6bf4fffce?q=80&w=800&auto=format&fit=crop', // White shirt
+    'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=800&auto=format&fit=crop', // Mens coat
+    'https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?q=80&w=800&auto=format&fit=crop'  // Outdoor casual
 ];
 
 // Helper to generate random product data
@@ -67,10 +68,12 @@ const createProducts = (images: string[], prefix: string, type: 'product' | 'mod
     const nameSource = type === 'model' ? MODEL_NAMES : NAMES;
 
     for (let i = 0; i < 50; i++) {
+        const brand = BRANDS[Math.floor(Math.random() * BRANDS.length)];
         result.push({
             id: `${prefix}-${i}`,
             image: images[i % images.length],
-            brand: BRANDS[Math.floor(Math.random() * BRANDS.length)],
+            brand: brand,
+            brandAvatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(brand)}&background=random&color=fff&size=128`,
             name: nameSource[Math.floor(Math.random() * nameSource.length)],
             price: `$${Math.floor(Math.random() * 200) + 20}`,
             details: DETAILS[Math.floor(Math.random() * DETAILS.length)],

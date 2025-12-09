@@ -9,7 +9,7 @@ import type { Product } from '../data/mockData';
 
 interface MasonryGridProps {
     products: Product[];
-    variant?: 'model' | 'item';
+    variant?: 'model' | 'item' | 'look';
 }
 
 const MasonryGrid = ({ products, variant = 'item' }: MasonryGridProps) => {
