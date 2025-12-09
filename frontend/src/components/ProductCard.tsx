@@ -25,8 +25,12 @@ const ProductCard = ({ product, onClick }: ProductCardProps) => {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300">
                     {/* Top Left: AI Try-On */}
                     <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0">
-                        <button className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium text-black hover:bg-white transition-colors">
-                            AI Try-On
+                        <button className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
+                            {/* Prism Effect: Transparent (Silver) until ~50% */}
+                            <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
+                            {/* Shine */}
+                            <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+                            <span className="relative z-10">AI Try-On</span>
                         </button>
                     </div>
 

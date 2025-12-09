@@ -1,4 +1,4 @@
-import { X, Edit2, Upload, Download } from 'lucide-react';
+import { Edit2, Upload, Download } from 'lucide-react';
 import type { Product } from '../data/mockData';
 
 interface ProductModalProps {
@@ -17,13 +17,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
 
             {/* Modal Content */}
             <div className="relative bg-white rounded-2xl overflow-hidden w-full max-w-lg shadow-2xl animate-in fade-in zoom-in duration-200">
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 z-10 bg-white/50 backdrop-blur-md p-2 rounded-full hover:bg-white transition-colors"
-                >
-                    <X size={20} />
-                </button>
+                {/* Close Button Removed */}
 
                 {/* Image */}
                 <div className="relative aspect-[3/4] w-full bg-gray-100">
@@ -45,14 +39,21 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                             </h3>
                             <span className="text-xl text-gray-900 shrink-0">{product.price}</span>
                         </div>
+                        <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+                            {product.details}
+                        </p>
                     </div>
 
                     {/* Action Bar */}
                     <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                         {/* Left Actions */}
                         <div className="flex gap-3">
-                            <button className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
-                                AI Try-On
+                            <button className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
+                                {/* Prism Effect: Transparent (Silver) until ~50% */}
+                                <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
+                                {/* Shine */}
+                                <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+                                <span className="relative z-10 flex items-center gap-2">AI Try-On</span>
                             </button>
                             <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
                                 Save

@@ -4,6 +4,7 @@ export interface Product {
     brand: string;
     name: string;
     price: string;
+    details: string;
 }
 
 const MODEL_IMAGES = [
@@ -48,6 +49,13 @@ const LOOK_IMAGES = [
 // Helper to generate random product data
 const BRANDS = ['Gucci', 'Prada', 'Zara', 'H&M', 'Uniqlo', 'Nike', 'Adidas', 'Chanel', 'Dior', 'Fendi'];
 const NAMES = ['Silk Blouse', 'Cotton Tee', 'Denim Jacket', 'Wool Coat', 'Leather Bag', 'Summer Dress', 'Casual Pants', 'Sneakers', 'Evening Gown', 'Scarf'];
+const DETAILS = [
+    "Crafted from premium materials for a luxurious feel. Perfect for any occasion.",
+    "A timeless design that blends classic elegance with modern chic. Essential for your wardrobe.",
+    "Features intricate stitching and a comfortable fit. Designed to last season after season.",
+    "Lightweight and breathable fabric, ideal for summer days. Effortlessly stylish.",
+    "Bold and statement-making piece. Guaranteed to turn heads wherever you go."
+];
 
 const createProducts = (images: string[], prefix: string): Product[] => {
     // Generate 50 items by cycling through images and random text
@@ -59,6 +67,7 @@ const createProducts = (images: string[], prefix: string): Product[] => {
             brand: BRANDS[Math.floor(Math.random() * BRANDS.length)],
             name: NAMES[Math.floor(Math.random() * NAMES.length)],
             price: `$${Math.floor(Math.random() * 200) + 20}`,
+            details: DETAILS[Math.floor(Math.random() * DETAILS.length)],
         });
     }
     return result;

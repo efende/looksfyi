@@ -7,7 +7,7 @@ import MasonryGrid from './components/MasonryGrid';
 import { MODELS_DATA, ITEMS_DATA, LOOKS_DATA } from './data/mockData';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('Models');
+  const [activeTab, setActiveTab] = useState<Tab>('Items');
 
   const getProductsForTab = (tab: Tab) => {
     switch (tab) {
