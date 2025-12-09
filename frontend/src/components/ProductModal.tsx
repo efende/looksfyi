@@ -20,15 +20,15 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
             ></div>
 
             {/* Modal Content */}
-            <div className="relative bg-white rounded-2xl overflow-hidden w-full max-w-lg shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="relative bg-white rounded-2xl overflow-hidden w-fit max-w-[90vw] shadow-2xl animate-in fade-in zoom-in duration-200">
                 {/* Close Button Removed */}
 
                 {/* Image */}
-                <div className="relative aspect-[3/4] w-full bg-gray-100">
+                <div className="relative h-[70vh] bg-gray-100">
                     <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover"
+                        className="h-full w-auto object-cover"
                     />
                 </div>
 
