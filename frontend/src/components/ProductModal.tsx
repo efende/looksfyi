@@ -4,9 +4,12 @@ import type { Product } from '../data/mockData';
 interface ProductModalProps {
     product: Product;
     onClose: () => void;
+    variant?: 'model' | 'item';
 }
 
-const ProductModal = ({ product, onClose }: ProductModalProps) => {
+const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps) => {
+    const isModel = variant === 'model';
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
@@ -32,16 +35,18 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                 <div className="p-6">
                     {/* Info */}
                     <div className="mb-6">
-                        <p className="text-sm text-gray-500 font-medium">{product.brand}</p>
+                        {!isModel && <p className="text-sm text-gray-500 font-medium">{product.brand}</p>}
                         <div className="flex justify-between items-baseline mt-1 gap-4">
                             <h3 className="text-xl text-gray-900 truncate" title={product.name}>
                                 {product.name}
                             </h3>
-                            <span className="text-xl text-gray-900 shrink-0">{product.price}</span>
+                            {!isModel && <span className="text-xl text-gray-900 shrink-0">{product.price}</span>}
                         </div>
-                        <p className="text-sm text-gray-500 mt-3 leading-relaxed">
-                            {product.details}
-                        </p>
+                        {!isModel && (
+                            <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+                                {product.details}
+                            </p>
+                        )}
                     </div>
 
                     {/* Action Bar */}
@@ -55,12 +60,16 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                                 <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                                 <span className="relative z-10 flex items-center gap-2">AI Try-On</span>
                             </button>
-                            <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
-                                Save
-                            </button>
-                            <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
-                                Buy
-                            </button>
+                            {!isModel && (
+                                <>
+                                    <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
+                                        Save
+                                    </button>
+                                    <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
+                                        Buy
+                                    </button>
+                                </>
+                            )}
                         </div>
 
                         {/* Right Actions */}

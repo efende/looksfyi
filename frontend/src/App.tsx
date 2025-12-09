@@ -29,7 +29,10 @@ function App() {
       <main className="w-full">
         <ProfileHeader />
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-        <MasonryGrid products={getProductsForTab(activeTab)} />
+        <MasonryGrid
+          products={getProductsForTab(activeTab)}
+          variant={activeTab === 'Models' ? 'model' : 'item'}
+        />
       </main>
     </div>
   );

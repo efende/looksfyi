@@ -56,16 +56,22 @@ const DETAILS = [
     "Lightweight and breathable fabric, ideal for summer days. Effortlessly stylish.",
     "Bold and statement-making piece. Guaranteed to turn heads wherever you go."
 ];
+const MODEL_NAMES = [
+    "Bella Hadid", "Kendall Jenner", "Gigi Hadid", "Adut Akech", "Sora Choi",
+    "Anok Yai", "Kaia Gerber", "Liu Wen", "Vittoria Ceretti", "Paloma Elsesser"
+];
 
-const createProducts = (images: string[], prefix: string): Product[] => {
+const createProducts = (images: string[], prefix: string, type: 'product' | 'model' = 'product'): Product[] => {
     // Generate 50 items by cycling through images and random text
     const result: Product[] = [];
+    const nameSource = type === 'model' ? MODEL_NAMES : NAMES;
+
     for (let i = 0; i < 50; i++) {
         result.push({
             id: `${prefix}-${i}`,
             image: images[i % images.length],
             brand: BRANDS[Math.floor(Math.random() * BRANDS.length)],
-            name: NAMES[Math.floor(Math.random() * NAMES.length)],
+            name: nameSource[Math.floor(Math.random() * nameSource.length)],
             price: `$${Math.floor(Math.random() * 200) + 20}`,
             details: DETAILS[Math.floor(Math.random() * DETAILS.length)],
         });
@@ -73,6 +79,6 @@ const createProducts = (images: string[], prefix: string): Product[] => {
     return result;
 };
 
-export const MODELS_DATA = createProducts(MODEL_IMAGES, 'model');
-export const ITEMS_DATA = createProducts(ITEM_IMAGES, 'item');
-export const LOOKS_DATA = createProducts(LOOK_IMAGES, 'look');
+export const MODELS_DATA = createProducts(MODEL_IMAGES, 'model', 'model');
+export const ITEMS_DATA = createProducts(ITEM_IMAGES, 'item', 'product');
+export const LOOKS_DATA = createProducts(LOOK_IMAGES, 'look', 'model');
