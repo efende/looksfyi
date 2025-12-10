@@ -1,4 +1,4 @@
-import { ChevronLeft, Edit2, Upload, Download, ShoppingBag, Plus } from 'lucide-react';
+import { ChevronLeft, Edit2, Upload, Download, Bookmark, ExternalLink } from 'lucide-react';
 import type { Product } from '../data/mockData';
 import { useState } from 'react';
 
@@ -113,7 +113,7 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                     {isLook && (
                         <div
                             className={`absolute inset-0 bg-white z-30 flex flex-col transition-transform duration-300 ease-in-out ${selectedRelatedItem ? 'translate-x-0' : '-translate-x-full'
-                                }`}
+                                } `}
                         >
                             {selectedRelatedItem && (
                                 <>
@@ -232,23 +232,23 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                                                             </button>
                                                         </div>
 
-                                                        {/* Top Right: Save (Plus Icon) */}
+                                                        {/* Top Right: Save (Bookmark) */}
                                                         <div className="absolute top-2 right-2">
                                                             <button
                                                                 className="bg-white/90 backdrop-blur-sm p-2 rounded-full text-black hover:bg-white transition-colors shadow-sm"
                                                                 onClick={(e) => { e.stopPropagation(); }}
                                                             >
-                                                                <Plus size={14} />
+                                                                <Bookmark size={14} />
                                                             </button>
                                                         </div>
 
-                                                        {/* Bottom Left: Buy (ShoppingBag Icon) */}
+                                                        {/* Bottom Left: Visit Site (ExternalLink) */}
                                                         <div className="absolute bottom-2 left-2">
                                                             <button
                                                                 className="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors shadow-sm"
                                                                 onClick={(e) => { e.stopPropagation(); }}
                                                             >
-                                                                <ShoppingBag size={14} />
+                                                                <ExternalLink size={14} />
                                                             </button>
                                                         </div>
                                                     </div>
