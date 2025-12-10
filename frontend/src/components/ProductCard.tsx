@@ -51,7 +51,7 @@ const ProductCard = ({ product, onClick, variant = 'item' }: ProductCardProps) =
                     {!isModel && !isLook && (
                         <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[10px] group-hover:translate-y-0 delay-100">
                             <button className="bg-white text-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-gray-100 transition-colors">
-                                Buy
+                                Visit Site
                             </button>
                         </div>
                     )}

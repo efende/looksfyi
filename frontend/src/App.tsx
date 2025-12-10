@@ -13,22 +13,27 @@ function App() {
   const [activeTab, setActiveTab] = useState<Tab>('Items');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [items, setItems] = useState<Product[]>(ITEMS_DATA);
+  const [models, setModels] = useState<Product[]>(MODELS_DATA);
 
   const getProductsForTab = (tab: Tab) => {
     switch (tab) {
       case 'Models':
-        return MODELS_DATA;
+        return models;
       case 'Items':
         return items;
       case 'Looks':
         return LOOKS_DATA;
       default:
-        return MODELS_DATA;
+        return models;
     }
   };
 
-  const handleCreateItem = (newItem: Product) => {
-    setItems((prev) => [newItem, ...prev]);
+  const handleCreate = (newItem: Product) => {
+    if (activeTab === 'Models') {
+      setModels((prev) => [newItem, ...prev]);
+    } else {
+      setItems((prev) => [newItem, ...prev]);
+    }
     setIsCreateModalOpen(false);
   };
 
@@ -45,8 +50,8 @@ function App() {
         />
       </main>
 
-      {/* Floating Action Button - only on Items tab */}
-      {activeTab === 'Items' && (
+      {/* Floating Action Button - on Items and Models tabs */}
+      {(activeTab === 'Items' || activeTab === 'Models') && (
         <button
           onClick={() => setIsCreateModalOpen(true)}
           className="fixed bottom-8 right-8 bg-black text-white p-4 rounded-full shadow-2xl hover:scale-105 transition-transform z-40 group"
@@ -59,7 +64,8 @@ function App() {
       {isCreateModalOpen && (
         <CreateItemModal
           onClose={() => setIsCreateModalOpen(false)}
-          onCreate={handleCreateItem}
+          onCreate={handleCreate}
+          mode={activeTab === 'Models' ? 'model' : 'item'}
         />
       )}
     </div>

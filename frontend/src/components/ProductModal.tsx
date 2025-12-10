@@ -85,7 +85,7 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                                         </button>
                                         {!isLook && (
                                             <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
-                                                Buy
+                                                Visit Site
                                             </button>
                                         )}
                                     </>
@@ -171,7 +171,7 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                                                     Save
                                                 </button>
                                                 <button className="bg-gray-100 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
-                                                    Buy
+                                                    Visit Site
                                                 </button>
                                             </div>
 

@@ -5,9 +5,10 @@ import type { Product } from '../data/mockData';
 interface CreateItemModalProps {
     onClose: () => void;
     onCreate: (item: Product) => void;
+    mode?: 'item' | 'model';
 }
 
-export default function CreateItemModal({ onClose, onCreate }: CreateItemModalProps) {
+export default function CreateItemModal({ onClose, onCreate, mode = 'item' }: CreateItemModalProps) {
     const [step, setStep] = useState<'input' | 'selection'>('input');
     const [formData, setFormData] = useState({
         name: '',
@@ -63,31 +64,44 @@ export default function CreateItemModal({ onClose, onCreate }: CreateItemModalPr
                     <div className="w-full h-full relative">
                         <div className="flex w-full h-full">
                             <div className="w-1/2 p-8 bg-gray-50 border-r border-gray-100 flex flex-col justify-center items-center relative">
-                                <h2 className="text-2xl font-handwriting mb-8 text-gray-500 absolute top-8 left-8 -rotate-2">Create Items</h2>
+                                <h2 className="text-2xl font-handwriting mb-8 text-gray-500 absolute top-8 left-8 -rotate-2">
+                                    {mode === 'model' ? 'Create Model' : 'Create Items'}
+                                </h2>
                                 <UploadArea
                                     formData={formData}
                                     onDrop={handleDrop}
                                     onUpload={handleImageUpload}
                                     className="w-full flex-1 rounded-2xl bg-white"
                                     compact={false}
+                                    mode={mode}
                                 />
                             </div>
                             <div className="w-1/2 p-12 flex flex-col justify-center bg-white">
                                 <div className="space-y-5 max-w-sm mx-auto w-full">
                                     <div className="space-y-1">
-                                        <label className="text-sm font-medium text-gray-900 ml-1">Item Name</label>
-                                        <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none" placeholder="e.g. Vintage Lamp" />
+                                        <label className="text-sm font-medium text-gray-900 ml-1">
+                                            {mode === 'model' ? 'Model Name' : 'Item Name'}
+                                        </label>
+                                        <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none" placeholder={mode === 'model' ? "e.g. Summer Look" : "e.g. Vintage Lamp"} />
                                     </div>
-                                    <div className="space-y-1">
-                                        <label className="text-sm font-medium text-gray-900 ml-1">Details</label>
-                                        <textarea value={formData.details} onChange={e => setFormData({ ...formData, details: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none h-32 resize-none" placeholder="Add description..." />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-sm font-medium text-gray-900 ml-1">Item URL</label>
-                                        <input type="text" value={formData.link} onChange={e => setFormData({ ...formData, link: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none" placeholder="http://" />
-                                    </div>
+
+                                    {mode === 'item' && (
+                                        <>
+                                            <div className="space-y-1">
+                                                <label className="text-sm font-medium text-gray-900 ml-1">Details</label>
+                                                <textarea value={formData.details} onChange={e => setFormData({ ...formData, details: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none h-32 resize-none" placeholder="Add description..." />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-sm font-medium text-gray-900 ml-1">Item URL</label>
+                                                <input type="text" value={formData.link} onChange={e => setFormData({ ...formData, link: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black/5 outline-none" placeholder="http://" />
+                                            </div>
+                                        </>
+                                    )}
+
                                     <div className="pt-2">
-                                        <button onClick={handleCreate} disabled={!formData.name || !formData.image} className="w-full py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 disabled:opacity-50 transition-all">Create Item</button>
+                                        <button onClick={handleCreate} disabled={!formData.name || !formData.image} className="w-full py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 disabled:opacity-50 transition-all">
+                                            {mode === 'model' ? 'Create Model' : 'Create Item'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -144,12 +158,14 @@ const UploadArea = ({
     onUpload,
     className = '',
     compact = false,
+    mode = 'item',
 }: {
     formData: { image: string | null };
     onDrop: (e: React.DragEvent) => void;
     onUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
     compact?: boolean;
+    mode?: 'item' | 'model';
 }) => (
     <label
         onDragOver={e => e.preventDefault()}
@@ -165,7 +181,11 @@ const UploadArea = ({
                     <Upload className="text-gray-400" size={compact ? 20 : 28} />
                 </div>
                 {!compact && (
-                    <p className="text-sm font-medium text-gray-500 font-handwriting">Upload Your Style: Apparel, Shoes, Accessories. Drag &amp; Drop or Click.</p>
+                    <p className="text-sm font-medium text-gray-500 font-handwriting">
+                        {mode === 'model'
+                            ? "Upload Your Model. Drag & Drop or Click."
+                            : "Upload Your Style: Apparel, Shoes, Accessories. Drag & Drop or Click."}
+                    </p>
                 )}
             </div>
         )}
