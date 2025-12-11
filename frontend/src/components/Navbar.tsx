@@ -32,12 +32,11 @@ const Navbar = () => {
                     <span className="text-sm font-normal">15</span>
                 </div>
 
-                <button className="flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full text-sm font-normal hover:bg-gray-800 transition-colors">
-                    <Crown size={14} />
-                    <span>Upgrade</span>
-                </button>
-
-                <div className="flex items-center gap-1 cursor-pointer">
+                <div className="flex items-center gap-4">
+                    <button className="flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full text-sm font-normal hover:bg-gray-800 transition-colors">
+                        <Crown size={14} />
+                        <span>Upgrade</span>
+                    </button>
                     <LoginButton />
                 </div>
             </div>
