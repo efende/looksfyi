@@ -4,14 +4,16 @@ import { useState, useRef } from 'react';
 interface SearchBarProps {
     activeTab: string;
     onSearch: (query: string) => void;
+    placeholder?: string;
 }
 
-const SearchBar = ({ activeTab, onSearch }: SearchBarProps) => {
+const SearchBar = ({ activeTab, onSearch, placeholder }: SearchBarProps) => {
     const [query, setQuery] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const getPlaceholder = () => {
+        if (placeholder) return placeholder;
         switch (activeTab) {
             case 'Models': return "Search your Models";
             case 'Items': return "Search your Items";
