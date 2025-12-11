@@ -10,9 +10,10 @@ import type { Product } from '../data/mockData';
 interface MasonryGridProps {
     products: Product[];
     variant?: 'model' | 'item' | 'look';
+    onAddToWorkspace?: (product: Product, isModel: boolean) => void;
 }
 
-const MasonryGrid = ({ products, variant = 'item' }: MasonryGridProps) => {
+const MasonryGrid = ({ products, variant = 'item', onAddToWorkspace }: MasonryGridProps) => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     return (
@@ -25,6 +26,7 @@ const MasonryGrid = ({ products, variant = 'item' }: MasonryGridProps) => {
                             product={product}
                             variant={variant}
                             onClick={() => setSelectedProduct(product)}
+                            onAddToWorkspace={onAddToWorkspace}
                         />
                     ))}
                 </div>

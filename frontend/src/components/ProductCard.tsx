@@ -5,15 +5,30 @@ interface ProductCardProps {
     product: Product;
     onClick?: () => void;
     variant?: 'model' | 'item' | 'look';
+    onAddToWorkspace?: (product: Product, isModel: boolean) => void;
 }
 
-const ProductCard = ({ product, onClick, variant = 'item' }: ProductCardProps) => {
+const ProductCard = ({ product, onClick, variant = 'item', onAddToWorkspace }: ProductCardProps) => {
     const isModel = variant === 'model';
     const isLook = variant === 'look';
+
+    const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+        e.dataTransfer.setData('product', JSON.stringify(product));
+        e.dataTransfer.setData('type', variant); // 'model' or 'item' (typically 'item')
+        e.dataTransfer.effectAllowed = 'copy';
+
+        // Use the image element as the drag ghost
+        const img = e.currentTarget.querySelector('img');
+        if (img) {
+            e.dataTransfer.setDragImage(img, img.offsetWidth / 2, img.offsetHeight / 2);
+        }
+    };
 
     return (
         <div
             onClick={onClick}
+            draggable
+            onDragStart={handleDragStart}
             className="group break-inside-avoid relative mb-4 cursor-pointer"
         >
             {/* Image Container */}
@@ -29,7 +44,12 @@ const ProductCard = ({ product, onClick, variant = 'item' }: ProductCardProps) =
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300">
                     {/* Top Left: AI Try-On */}
                     <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0">
-                        <button className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                if (onAddToWorkspace) onAddToWorkspace(product, isModel);
+                            }}
+                            className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
                             {/* Prism Effect: Transparent (Silver) until ~50% */}
                             <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
                             {/* Shine */}
@@ -47,7 +67,7 @@ const ProductCard = ({ product, onClick, variant = 'item' }: ProductCardProps) =
                         </div>
                     )}
 
-                    {/* Bottom Left: Buy (Items only) */}
+                    {/* Bottom Left: Visit Site (Items only) */}
                     {!isModel && !isLook && (
                         <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[10px] group-hover:translate-y-0 delay-100">
                             <button className="bg-white text-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-gray-100 transition-colors">
