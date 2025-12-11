@@ -15,17 +15,34 @@ function App() {
   const [items, setItems] = useState<Product[]>(ITEMS_DATA);
   const [models, setModels] = useState<Product[]>(MODELS_DATA);
 
+  // Search State
+  const [searchQuery, setSearchQuery] = useState('');
+
   const getProductsForTab = (tab: Tab) => {
+    let data: any[] = [];
     switch (tab) {
       case 'Models':
-        return models;
+        data = models;
+        break;
       case 'Items':
-        return items;
+        data = items;
+        break;
       case 'Looks':
-        return LOOKS_DATA;
+        data = LOOKS_DATA;
+        break;
       default:
-        return models;
+        data = models;
     }
+
+    if (!searchQuery) return data;
+
+    // Generic Safety Filter
+    const q = searchQuery.toLowerCase();
+    return data.filter((item) => {
+      const name = item.name || item.title || '';
+      const brand = item.brand || '';
+      return name.toLowerCase().includes(q) || brand.toLowerCase().includes(q);
+    });
   };
 
   const handleCreate = (newItem: Product) => {
@@ -39,7 +56,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <Navbar activeTab={activeTab} onSearch={setSearchQuery} />
 
       <main className="w-full">
         <ProfileHeader />

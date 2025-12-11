@@ -1,28 +1,32 @@
 import { Coins, Crown } from 'lucide-react';
 import LoginButton from './LoginButton';
+import SearchBar from './SearchBar';
 
-const Navbar = () => {
+interface NavbarProps {
+    activeTab: string;
+    onSearch: (query: string) => void;
+}
+
+const Navbar = ({ activeTab, onSearch }: NavbarProps) => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-md border-b border-gray-100/50">
-            {/* Left: Logo */}
-            <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold">
-                    {/* Simple Grid/Logo Icon Placeholder */}
-                    <div className="grid grid-cols-2 gap-0.5">
-                        <div className="w-2 h-2 bg-white rounded-[1px]"></div>
-                        <div className="w-2 h-2 bg-white rounded-[1px]"></div>
-                        <div className="w-2 h-2 bg-white rounded-[1px]"></div>
-                        <div className="w-2 h-2 bg-white rounded-[1px]"></div>
+            {/* Left: Logo + Search */}
+            <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 flex items-center justify-center cursor-pointer text-black transition-opacity hover:opacity-70">
+                        <span className="font-serif font-bold text-2xl tracking-tighter leading-none pb-0.5">K</span>
                     </div>
                 </div>
-                <span className="font-normal text-gray-900">Kingdom</span>
+
+                {/* Search Bar */}
+                <SearchBar activeTab={activeTab} onSearch={onSearch} />
             </div>
 
             {/* Center: Title */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center text-sm text-gray-500 gap-4">
+            <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center text-sm text-gray-500 gap-4 pointer-events-none opacity-50 hidden lg:flex">
                 <span className="text-black font-normal">AI Try-On</span>
                 <span className="w-px h-4 bg-gray-300"></span>
-                <span className="text-gray-500 cursor-pointer hover:text-black transition-colors">Looks</span>
+                <span className="text-gray-500">Looks</span>
             </div>
 
             {/* Right: Actions */}
