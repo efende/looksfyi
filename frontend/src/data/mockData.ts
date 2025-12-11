@@ -7,6 +7,7 @@ export interface Product {
     price: string;
     details: string;
     relatedProducts?: Product[];
+    isGenerating?: boolean;
 }
 
 const MODEL_IMAGES = [

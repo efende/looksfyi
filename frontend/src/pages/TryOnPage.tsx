@@ -16,6 +16,7 @@ const TryOnPage = () => {
     // Mock Data State (managed locally per page for simplicity as data is static/mock)
     const [items, setItems] = useState<Product[]>(ITEMS_DATA);
     const [models, setModels] = useState<Product[]>(MODELS_DATA);
+    const [looks, setLooks] = useState<Product[]>(LOOKS_DATA);
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -29,7 +30,7 @@ const TryOnPage = () => {
         switch (tab) {
             case 'Models': data = models; break;
             case 'Items': data = items; break;
-            case 'Looks': data = LOOKS_DATA; break;
+            case 'Looks': data = looks; break;
             default: data = models;
         }
 
@@ -80,11 +81,28 @@ const TryOnPage = () => {
         setWorkspaceItems((prev) => prev.filter((_, i) => i !== index));
     };
 
+    const handleGenerate = () => {
+        setActiveTab('Looks');
+
+        const placeholder: Product = {
+            id: `gen-${Date.now()}`,
+            name: 'Generating...',
+            brand: 'System',
+            brandAvatar: '',
+            price: '',
+            image: '', // Not used by custom renderer
+            details: '',
+            isGenerating: true,
+        };
+
+        setLooks((prev) => [placeholder, ...prev]);
+    };
+
     return (
         <div className="min-h-screen bg-white">
             <Navbar activeTab={activeTab} onSearch={setSearchQuery} />
 
-            <main className="w-full">
+            <main className="w-full relative">
                 <TryOnWorkspace
                     model={workspaceModel}
                     items={workspaceItems}
@@ -93,7 +111,7 @@ const TryOnPage = () => {
                     onRemoveItem={handleRemoveItem}
                     onRemoveModel={() => setWorkspaceModel(null)}
                     onAddProduct={handleAddToWorkspace}
-                    onGenerate={() => console.log('Generating...')}
+                    onGenerate={handleGenerate}
                 />
 
                 <div className="bg-white">

@@ -12,6 +12,21 @@ const ProductCard = ({ product, onClick, variant = 'item', onAddToWorkspace }: P
     const isModel = variant === 'model';
     const isLook = variant === 'look';
 
+    // Special Rendering for Generating State
+    if (product.isGenerating) {
+        return (
+            <div className="break-inside-avoid relative mb-4 rounded-xl aspect-[3/4] cursor-default bg-gray-100 overflow-hidden flex items-center justify-center">
+                {/* Glow Effects - Pulsating Size */}
+                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-300/60 rounded-full blur-[50px] animate-[pulse_3s_ease-in-out_infinite] scale-150"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-blue-300/60 rounded-full blur-[50px] animate-[pulse_4s_ease-in-out_infinite] scale-150 delay-700"></div>
+
+                <div className="relative z-10 flex flex-col items-center">
+                    <h2 className="text-sm font-light text-gray-800 tracking-[0.25em] uppercase border-b border-gray-300 pb-1">Generating</h2>
+                </div>
+            </div>
+        );
+    }
+
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData('product', JSON.stringify(product));
         e.dataTransfer.setData('type', variant); // 'model' or 'item' (typically 'item')
