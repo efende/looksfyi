@@ -38,6 +38,7 @@ const MasonryGrid = ({ products, variant = 'item', onAddToWorkspace }: MasonryGr
                         product={selectedProduct}
                         variant={variant}
                         onClose={() => setSelectedProduct(null)}
+                        onAddToWorkspace={onAddToWorkspace}
                     />
                 )
             }

@@ -6,9 +6,10 @@ interface ProductModalProps {
     product: Product;
     onClose: () => void;
     variant?: 'model' | 'item' | 'look';
+    onAddToWorkspace?: (product: Product, isModel: boolean) => void;
 }
 
-const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps) => {
+const ProductModal = ({ product, onClose, variant = 'item', onAddToWorkspace }: ProductModalProps) => {
     const isModel = variant === 'model';
     const isLook = variant === 'look';
     const [selectedRelatedItem, setSelectedRelatedItem] = useState<Product | null>(null);
@@ -73,7 +74,9 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                         <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                             {/* Left Actions */}
                             <div className="flex gap-3">
-                                <button className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
+                                <button
+                                    onClick={() => onAddToWorkspace?.(product, isModel)}
+                                    className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
                                     <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
                                     <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                                     <span className="relative z-10 flex items-center gap-2">AI Try-On</span>
@@ -161,7 +164,9 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                                         <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                                             {/* Left Actions */}
                                             <div className="flex gap-3">
-                                                <button className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
+                                                <button
+                                                    onClick={() => onAddToWorkspace?.(selectedRelatedItem, false)}
+                                                    className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95">
                                                     <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
                                                     <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                                                     <span className="relative z-10 flex items-center gap-2">AI Try-On</span>
@@ -224,7 +229,10 @@ const ProductModal = ({ product, onClose, variant = 'item' }: ProductModalProps)
                                                         <div className="absolute top-2 left-2">
                                                             <button
                                                                 className="relative overflow-hidden group/btn bg-gradient-to-r from-[#E2E2E2] via-[#E2E2E2] to-[#E2E2E2] text-black px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg hover:scale-105 transition-transform"
-                                                                onClick={(e) => { e.stopPropagation(); }}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    onAddToWorkspace?.(item, false);
+                                                                }}
                                                             >
                                                                 <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_45%,rgba(255,0,128,0.3)_75%,rgba(121,40,202,0.3)_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity"></div>
                                                                 <div className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>

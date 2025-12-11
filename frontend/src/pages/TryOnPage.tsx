@@ -56,10 +56,23 @@ const TryOnPage = () => {
         if (isModel) {
             setWorkspaceModel(product);
         } else {
-            setWorkspaceItems((prev) => {
-                if (prev.length >= 8) return prev;
-                return [...prev, product];
-            });
+            // Check if it's a Look with related products
+            if (product.relatedProducts && product.relatedProducts.length > 0) {
+                setWorkspaceItems((prev) => {
+                    const availableSlots = 8 - prev.length;
+                    if (availableSlots <= 0) return prev;
+
+                    // Take only as many related items as fit
+                    const itemsToAdd = product.relatedProducts!.slice(0, availableSlots);
+                    return [...prev, ...itemsToAdd];
+                });
+            } else {
+                // Regular Item
+                setWorkspaceItems((prev) => {
+                    if (prev.length >= 8) return prev;
+                    return [...prev, product];
+                });
+            }
         }
     };
 
@@ -79,29 +92,7 @@ const TryOnPage = () => {
                     onSetPrompt={setPrompt}
                     onRemoveItem={handleRemoveItem}
                     onRemoveModel={() => setWorkspaceModel(null)}
-                    onDropModel={(e) => {
-                        e.preventDefault();
-                        const data = e.dataTransfer.getData('product');
-                        if (data) {
-                            const product = JSON.parse(data) as Product;
-                            const type = e.dataTransfer.getData('type');
-                            if (type === 'model') setWorkspaceModel(product);
-                        }
-                    }}
-                    onDropItem={(e, index) => {
-                        e.preventDefault();
-                        const data = e.dataTransfer.getData('product');
-                        if (data) {
-                            const product = JSON.parse(data) as Product;
-                            const type = e.dataTransfer.getData('type');
-                            if (type !== 'model') {
-                                setWorkspaceItems((prev) => {
-                                    if (prev.length < 8) return [...prev, product];
-                                    return prev;
-                                });
-                            }
-                        }
-                    }}
+                    onAddProduct={handleAddToWorkspace}
                     onGenerate={() => console.log('Generating...')}
                 />
 
