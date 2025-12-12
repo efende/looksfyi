@@ -1,7 +1,8 @@
-import { Coins, Crown } from 'lucide-react';
+
 import LoginButton from './LoginButton';
 import SearchBar from './SearchBar';
 import { Link, useLocation } from 'react-router-dom';
+
 
 interface NavbarProps {
     activeTab?: string;
@@ -29,6 +30,7 @@ const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
             </div>
 
             {/* Center: Title */}
+            {/* Center: Title */}
             <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center text-sm gap-4 pointer-events-none hidden lg:flex">
                 <Link
                     to="/try-on"
@@ -47,20 +49,27 @@ const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
 
             {/* Right: Actions */}
             <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1.5 text-gray-600 hover:text-black cursor-pointer transition-colors">
-                    <Coins size={16} />
-                    <span className="text-sm font-normal">15</span>
-                </div>
+
 
                 <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full text-sm font-normal hover:bg-gray-800 transition-colors">
-                        <Crown size={14} />
-                        <span>Upgrade</span>
-                    </button>
+                    <Link to="/pricing" className="text-sm font-normal uppercase tracking-widest text-black hover:text-gray-500 transition-colors">
+                        Upgrade
+                    </Link>
+                    <CreditDisplay />
                     <LoginButton />
                 </div>
             </div>
         </nav>
+    );
+};
+
+const CreditDisplay = () => {
+    const credits = 15;
+    return (
+        <div className="flex items-center gap-2 text-sm font-normal text-black px-2 cursor-help" title="Creating a look costs ≈ 5 credits">
+            <span className="text-base">✦</span>
+            <span>{credits}</span>
+        </div>
     );
 };
 

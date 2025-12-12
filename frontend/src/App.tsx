@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProfilePage from './pages/ProfilePage';
 import TryOnPage from './pages/TryOnPage';
 import GlobalLooksPage from './pages/GlobalLooksPage';
+import PricingPage from './pages/PricingPage';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<ProfilePage />} />
         <Route path="/try-on" element={<TryOnPage />} />
         <Route path="/looks" element={<GlobalLooksPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
       </Routes>
     </Router>
   );
