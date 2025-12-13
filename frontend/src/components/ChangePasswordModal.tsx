@@ -19,10 +19,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
 
     if (!isOpen) return null;
 
-    const hasLetter = /[a-zA-Z]/.test(newPassword);
-    const hasNumber = /[0-9]/.test(newPassword);
-    const hasSymbol = /[^a-zA-Z0-9]/.test(newPassword);
-    const isValid = newPassword.length >= 6 && hasLetter && hasNumber && hasSymbol;
+    const isValid = newPassword.length >= 6;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -87,7 +84,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClo
                             </button>
                         </div>
                         <p className={`text-xs px-1 transition-colors ${newPassword.length > 0 && !isValid ? 'text-red-500' : 'text-gray-400'}`}>
-                            Use 6+ letters, numbers, and symbols (!@%)
+                            6 characters at least, case sensitive
                         </p>
                     </div>
 
