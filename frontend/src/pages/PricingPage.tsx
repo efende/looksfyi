@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 const PLANS = [
     {
         id: 0,
-        name: 'TRYON',
+        name: 'TryOn',
         price: '$0',
         tagline: 'Just a taste. 體驗試穿樂趣',
         credits: '10 Credits (≈ 2 Looks)',
@@ -20,7 +20,7 @@ const PLANS = [
     },
     {
         id: 1,
-        name: 'LOOKBOOK',
+        name: 'Lookbook',
         price: '$10',
         period: '/ mo',
         tagline: 'Curate your daily style. 策展你的日常風格',
@@ -38,7 +38,7 @@ const PLANS = [
     },
     {
         id: 2,
-        name: 'RUNWAY',
+        name: 'Runway',
         price: '$60',
         period: '/ mo',
         tagline: 'Own the spotlight. 擁抱聚光燈',
@@ -75,7 +75,7 @@ const PricingPage = () => {
                 <div className="flex flex-col lg:flex-row gap-6 max-w-[1600px] w-full h-[650px]"> {/* Increased height slightly to fit all features */}
 
                     {/* --- LEFT: Dynamic Media Column --- */}
-                    <div className="hidden lg:block w-[400px] relative rounded-sm overflow-hidden shadow-2xl transition-all duration-500 bg-black shrink-0">
+                    <div className="hidden lg:block w-[400px] relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 bg-black shrink-0">
                         {/* Default Image Layer */}
                         <div className={`absolute inset-0 transition-opacity duration-700 ${hoveredPlan === null ? 'opacity-100' : 'opacity-0'}`}>
                             <img src={DEFAULT_MEDIA.src} className="w-full h-full object-cover grayscale" />
@@ -116,12 +116,12 @@ const PricingPage = () => {
                                 onMouseEnter={() => setHoveredPlan(plan.id)}
                                 onMouseLeave={() => setHoveredPlan(null)}
                                 className={`
-                                    bg-white p-10 flex flex-col h-full relative transition-all duration-500 cursor-default
+                                    bg-white p-10 flex flex-col h-full relative transition-all duration-500 cursor-default rounded-2xl overflow-hidden
                                     ${hoveredPlan === plan.id ? 'shadow-2xl translate-y-[-8px] ring-1 ring-black' : 'shadow-sm hover:shadow-md'}
                                     ${hoveredPlan !== null && hoveredPlan !== plan.id ? 'opacity-50 blur-[1px]' : 'opacity-100'}
                                 `}
                             >
-                                <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-8">{plan.name}</h3>
+                                <h3 className="text-[10px] font-bold tracking-[0.2em] text-gray-400 mb-8">{plan.name}</h3>
 
                                 <div className="mb-8">
                                     <div className="flex items-baseline gap-2 mb-4">
@@ -148,8 +148,11 @@ const PricingPage = () => {
                                     </ul>
 
                                     <button className={`
-                                        w-full py-4 text-xs font-black tracking-[0.2em] uppercase transition-all duration-300 mt-auto
-                                        ${hoveredPlan === plan.id ? 'bg-black text-white' : 'bg-transparent text-black border-b-2 border-black hover:border-gray-500 hover:text-gray-500'}
+                                        w-full py-4 text-xs font-black tracking-[0.2em] uppercase transition-all duration-300 mt-auto relative
+                                        ${hoveredPlan === plan.id
+                                            ? 'bg-black text-white rounded-full'
+                                            : 'bg-transparent text-black rounded-none after:content-[""] after:absolute after:bottom-0 after:left-6 after:right-6 after:h-[2px] after:bg-black'
+                                        }
                                     `}>
                                         Subscribe
                                     </button>

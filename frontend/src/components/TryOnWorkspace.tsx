@@ -92,14 +92,14 @@ const TryOnWorkspace: React.FC<TryOnWorkspaceProps> = ({
 
     const renderModelSlot = () => (
         <div
-            className="relative w-full h-full flex flex-col items-center justify-center transition-all duration-300 overflow-hidden bg-[#222] group cursor-pointer"
+            className="relative w-full h-full flex flex-col items-center justify-center transition-all duration-300 overflow-hidden bg-[#222] group cursor-pointer rounded-xl"
             onDrop={(e) => handleDrop(e, true)}
             onDragOver={handleDragOver}
             onClick={() => !model && modelInputRef.current?.click()}
         >
             {/* Overlay Labels */}
             <div className="absolute top-8 left-8 z-10 pointer-events-none text-white">
-                <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-70 mb-2">Model</h2>
+                <h2 className="text-sm font-normal opacity-70 mb-2">Model</h2>
             </div>
 
             {model ? (
@@ -116,7 +116,7 @@ const TryOnWorkspace: React.FC<TryOnWorkspaceProps> = ({
             ) : (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -mt-4 flex flex-col items-center gap-4 opacity-70 group-hover:opacity-100 transition-opacity w-full">
                     <PlusCircle size={32} strokeWidth={1} className="text-white" />
-                    <span className="text-white text-xs font-bold uppercase tracking-widest">Add Model or Drag Here</span>
+                    <span className="text-white text-sm font-medium text-center">Upload Your Model. <br /> Drag & Drop or Click.</span>
                 </div>
             )}
         </div>
@@ -138,20 +138,21 @@ const TryOnWorkspace: React.FC<TryOnWorkspaceProps> = ({
                 {/* --- Center: Items (6 cols) --- */}
                 {/* --- Center: Items (6 cols) --- */}
                 <div
-                    className="col-span-6 h-full flex flex-col px-4 group/items relative"
+                    className="col-span-6 h-full flex flex-col px-4 group/items relative cursor-pointer"
                     onDrop={(e) => handleDrop(e, false)}
                     onDragOver={handleDragOver}
+                    onClick={() => itemInputRef.current?.click()}
                 >
                     <div className="mt-8 mb-4 border-b border-gray-100 pb-2">
-                        <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Items</h2>
+                        <h2 className="text-sm font-normal text-gray-400">Items</h2>
                     </div>
 
                     <div className="flex-1 relative overflow-y-auto">
                         <div className="grid grid-cols-4 gap-4 pb-4">
                             {/* Render Occupied Slots */}
                             {items.map((item, idx) => (
-                                <div key={idx} className="aspect-square relative group">
-                                    <div className="w-full h-full bg-gray-50 relative group cursor-default">
+                                <div key={idx} className="aspect-square relative group" onClick={(e) => e.stopPropagation()}>
+                                    <div className="w-full h-full bg-gray-50 relative group cursor-default rounded-xl overflow-hidden">
                                         <img src={item.image} alt={item.name} className="w-full h-full object-cover mix-blend-multiply" />
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onRemoveItem(idx); }}
@@ -170,12 +171,11 @@ const TryOnWorkspace: React.FC<TryOnWorkspaceProps> = ({
                         className={`absolute inset-0 pointer-events-none ${items.length > 0 ? 'opacity-0' : 'opacity-100'}`}
                     >
                         <div
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -mt-4 flex flex-col items-center gap-4 pointer-events-auto cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
-                            onClick={() => itemInputRef.current?.click()}
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -mt-4 flex flex-col items-center gap-4 transition-opacity w-full"
                         >
                             <PlusCircle size={32} strokeWidth={1} className="text-gray-400" />
-                            <span className="text-gray-400 text-xs font-bold uppercase tracking-widest text-center max-w-[200px] leading-relaxed">
-                                Add Apparel, Shoes, or Accessories<br />— or Drag Here
+                            <span className="text-gray-400 text-sm font-medium text-center max-w-[200px] leading-relaxed">
+                                Upload Your Style: Apparel, Shoes, Accessories. <br /> Drag & Drop or Click.
                             </span>
                         </div>
                     </div>
@@ -184,22 +184,27 @@ const TryOnWorkspace: React.FC<TryOnWorkspaceProps> = ({
                 {/* --- Right: Vision (3 cols) --- */}
                 <div className="col-span-3 h-full flex flex-col pl-4 border-l border-gray-50">
                     <div className="mb-6 flex-1 flex flex-col">
-                        <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-4 mt-8">Vibe</h2>
+                        <h2 className="text-sm font-normal text-gray-400 mb-4 mt-8">Vibe</h2>
                         <textarea
                             value={prompt}
                             onChange={(e) => onSetPrompt(e.target.value)}
                             placeholder="Describe the mood..."
-                            className="w-full flex-1 font-serif italic text-2xl placeholder:text-black/25 border-none outline-none p-0 bg-transparent text-black resize-none"
+                            className="w-full flex-1 text-sm font-medium placeholder:italic placeholder:text-gray-300 border-none outline-none p-0 bg-transparent text-black resize-none font-sans not-italic"
                         />
                     </div>
 
-                    <div className="relative flex items-end justify-end mt-4 border-b border-black pb-4 cursor-pointer group" onClick={onGenerate}>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1 group-hover:mr-2 transition-all duration-300">Generate Look</span>
-                        <div className="flex items-center mb-1 ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
-                            <span className="text-gray-300 text-[10px] mr-2">|</span>
-                            <span className="text-[10px] font-bold">✦ 5</span>
-                        </div>
-                    </div>
+                    <button
+                        onClick={onGenerate}
+                        className="group w-full py-4 text-sm font-medium transition-all duration-300 mt-4 relative flex items-center justify-center
+                        bg-transparent text-black rounded-none
+                        hover:bg-black hover:text-white hover:rounded-full
+                        after:content-[''] after:absolute after:bottom-0 after:left-6 after:right-6 after:h-[1px] after:bg-black after:transition-opacity hover:after:opacity-0"
+                    >
+                        <span>Generate Look</span>
+                        <span className="opacity-0 max-w-0 inline-flex overflow-hidden group-hover:opacity-100 group-hover:max-w-[100px] transition-all duration-300 ease-in-out whitespace-nowrap">
+                            <span className="opacity-50 mx-2">|</span> ✦ 5
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>

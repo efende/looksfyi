@@ -1,4 +1,4 @@
-import { Upload } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 import { useState } from 'react';
 import type { Product } from '../data/mockData';
 
@@ -176,15 +176,15 @@ const UploadArea = ({
         {formData.image ? (
             <img src={formData.image} alt="Preview" className="w-full h-full object-contain" />
         ) : (
-            <div className="text-center p-6">
-                <div className={`bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform ${compact ? 'w-10 h-10' : 'w-16 h-16'}`}>
-                    <Upload className="text-gray-400" size={compact ? 20 : 28} />
-                </div>
+            <div className="text-center p-6 flex flex-col items-center gap-4">
+                {/* Replaced Upload with PlusCircle & Removed Background Circle */}
+                <PlusCircle strokeWidth={1} className={`text-gray-400 group-hover:scale-110 transition-transform ${compact ? 'w-8 h-8' : 'w-12 h-12'}`} />
+
                 {!compact && (
-                    <p className="text-sm font-medium text-gray-500 font-handwriting">
+                    <p className="text-sm font-medium text-gray-400 max-w-[200px] leading-relaxed">
                         {mode === 'model'
-                            ? "Upload Your Model. Drag & Drop or Click."
-                            : "Upload Your Style: Apparel, Shoes, Accessories. Drag & Drop or Click."}
+                            ? <>Upload Your Model. <br /> Drag & Drop or Click.</>
+                            : <>Upload Your Style: Apparel, Shoes, Accessories. <br /> Drag & Drop or Click.</>}
                     </p>
                 )}
             </div>

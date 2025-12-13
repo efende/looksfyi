@@ -1,4 +1,6 @@
 
+import { ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 import LoginButton from './LoginButton';
 import SearchBar from './SearchBar';
 import { Link, useLocation } from 'react-router-dom';
@@ -13,7 +15,7 @@ interface NavbarProps {
 const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
     const location = useLocation();
     const isTryOn = location.pathname === '/try-on';
-    const isLooks = location.pathname === '/looks';
+    const isLooks = location.pathname === '/';
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-md border-b border-gray-100/50">
@@ -40,7 +42,7 @@ const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
                 </Link>
                 <span className="w-px h-4 bg-gray-300"></span>
                 <Link
-                    to="/looks"
+                    to="/"
                     className={`font-normal pointer-events-auto transition-colors ${isLooks ? 'text-black' : 'text-gray-500 hover:text-black'}`}
                 >
                     Looks
@@ -56,7 +58,9 @@ const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
                         Upgrade
                     </Link>
                     <CreditDisplay />
-                    <LoginButton />
+                    <div className="flex items-center gap-1 cursor-pointer">
+                        {useLocation().pathname === '/' ? <div className="mr-[26px]"><LoginButton /></div> : <UserDropdown />}
+                    </div>
                 </div>
             </div>
         </nav>
@@ -66,9 +70,78 @@ const Navbar = ({ activeTab, onSearch, searchPlaceholder }: NavbarProps) => {
 const CreditDisplay = () => {
     const credits = 15;
     return (
-        <div className="flex items-center gap-2 text-sm font-normal text-black px-2 cursor-help" title="Creating a look costs ≈ 5 credits">
+        <Link to="/profile" className="flex items-center gap-2 text-sm font-normal text-black px-2 hover:opacity-70 transition-opacity">
             <span className="text-base">✦</span>
             <span>{credits}</span>
+        </Link>
+    );
+};
+
+const UserDropdown = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    // Mock User Data
+    const user = {
+        name: "Kingdom Chen",
+        email: "kingdomchen@gmail.com",
+        avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop"
+    };
+
+    return (
+        <div className="relative flex items-center gap-1" ref={dropdownRef}>
+            {/* Avatar - Links to Studio Page */}
+            <Link to="/studio" className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 hover:opacity-80 transition-opacity">
+                <img src={user.avatar} alt="User" className="w-full h-full object-cover" />
+            </Link>
+
+            {/* Chevron - Toggles Dropdown */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`p-1 rounded-full hover:bg-gray-100 transition-colors ${isOpen ? 'bg-gray-100' : ''}`}
+            >
+                <ChevronDown size={14} className="text-gray-500" />
+            </button>
+
+            {/* Dropdown Menu */}
+            {isOpen && (
+                <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="p-5 border-b border-gray-50 flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full overflow-hidden shrink-0">
+                            <img src={user.avatar} alt="User" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="overflow-hidden">
+                            <h3 className="font-bold text-gray-900 truncate">{user.name}</h3>
+                            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                        </div>
+                    </div>
+
+                    <div className="p-2">
+                        <Link
+                            to="/profile"
+                            onClick={() => setIsOpen(false)}
+                            className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-xl transition-colors font-medium"
+                        >
+                            View Profile
+                        </Link>
+                        <button
+                            className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-xl transition-colors font-medium"
+                        >
+                            Log out
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

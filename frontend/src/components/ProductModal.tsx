@@ -23,15 +23,15 @@ const ProductModal = ({ product, onClose, variant = 'item', onAddToWorkspace }: 
             ></div>
 
             {/* Modal Content */}
-            <div className={`relative bg-white rounded-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200 ${isLook ? 'w-[90vw] max-w-6xl h-[85vh] flex' : 'w-fit max-w-[90vw]'}`}>
+            <div className={`relative bg-white rounded-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200 w-[90vw] max-w-6xl h-[85vh] flex`}>
                 {/* Left Column (Look) / Main Content (Standard) */}
-                <div className={`flex flex-col relative overflow-hidden ${isLook ? 'w-2/3 h-full' : ''}`}>
+                <div className={`flex flex-col relative overflow-hidden ${isLook ? 'w-2/3' : 'w-full'} h-full`}>
                     {/* Image Section */}
-                    <div className={`relative bg-gray-100 ${isLook ? 'flex-1 overflow-hidden' : 'h-[70vh]'}`}>
+                    <div className="relative bg-gray-100 flex-1 overflow-hidden">
                         <img
                             src={product.image}
                             alt={product.name}
-                            className={`h-full w-full ${isLook ? 'object-contain' : 'object-cover'}`}
+                            className="h-full w-full object-contain"
                         />
                     </div>
 
